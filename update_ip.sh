@@ -27,7 +27,7 @@ if [[ "${old_ip}" != "${new_ip}" ]]; then
     if [[ -w "$ip_file" ]]; then
         echo "$new_ip" > "$ip_file"
         git add "$ip_file"
-        git commit -m "update $ip_file"
+        git commit -m "update $ip_file" >/dev/null
         git push >/dev/null
     else
         echo "can not write new ip into $ip_file"
