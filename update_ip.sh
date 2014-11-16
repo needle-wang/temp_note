@@ -13,8 +13,8 @@ exit 1
 ip_file="./tempfile"
 getipshell="./getmywebip.sh"
 
-if [ ! -r "$ip_file" ] || [ ! -r "$getipshell" ] || [ ! -x "$getipshell" ]; then
-    echo "need $ip_file and $getipshell have -r, and $getipshell have -x."
+if [ ! -r "$ip_file" ] [ ! -w "$ip_file" ] || [ ! -r "$getipshell" ] || [ ! -x "$getipshell" ]; then
+    echo "$ip_file need rw, $getipshell need rx."
     exit 1
 fi
 
@@ -32,15 +32,10 @@ fi
 
 if [[ "${old_ip}" != "${new_ip}" ]]; then
     #echo "It's different. now update the web ip."
-    if [[ -w "$ip_file" ]]; then
-        echo "$new_ip" > "$ip_file"
-        git add "$ip_file"
-        git commit -m "update $ip_file" >/dev/null
-        git push >/dev/null
-    else
-        echo "can not write new ip into $ip_file"
-        :
-    fi
+    echo "$new_ip" > "$ip_file"
+    git add "$ip_file"
+    git commit -m "update $ip_file" >/dev/null
+    git push >/dev/null
 else
     #echo "the web ip is the same."
     :
