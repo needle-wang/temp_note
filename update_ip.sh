@@ -13,7 +13,7 @@ exit 1
 ip_file="./tempfile"
 getipshell="./getmywebip.sh"
 
-if [ ! -r "$ip_file" ] [ ! -w "$ip_file" ] || [ ! -r "$getipshell" ] || [ ! -x "$getipshell" ]; then
+if [ ! -r "$ip_file" ] || [ ! -w "$ip_file" ] || [ ! -r "$getipshell" ] || [ ! -x "$getipshell" ]; then
     echo "$ip_file need rw, $getipshell need rx."
     exit 1
 fi
