@@ -5,7 +5,7 @@
 PATH='/usr/lib/lightdm/lightdm:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/opt/jdk1.8.0_20/bin:/home/needle/myshell'
 export PATH
 
-cd /home/needle/test/gittopush/temp_note || {
+cd '/home/needle/test/gittopush/temp_note' || {
 echo 'can not into temp_note dir~'
 exit 1
 }
@@ -26,6 +26,8 @@ if [[ "${old_ip}" != "${new_ip}" ]]; then
     #echo "It's different. now update the web ip."
     if [[ -w "$ip_file" ]]; then
         echo "$new_ip" > "$ip_file"
+        git add "$ip_file"
+        git commit -m "update $ip_file"
         git push
     else
         echo "can not write new ip into $ip_file"
