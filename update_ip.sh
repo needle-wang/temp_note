@@ -5,6 +5,9 @@
 PATH='/usr/lib/lightdm/lightdm:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/opt/jdk1.8.0_20/bin:/home/needle/myshell'
 export PATH
 
+#若开了 vpn 会导致 git 无法操作
+ifconfig | grep -q '^ppp' && exit 0
+
 cd '/home/needle/test/gittopush/temp_note' || {
 echo 'can not go into temp_note dir~'
 exit 1
