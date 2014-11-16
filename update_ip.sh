@@ -6,21 +6,29 @@ PATH='/usr/lib/lightdm/lightdm:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin
 export PATH
 
 cd '/home/needle/test/gittopush/temp_note' || {
-echo 'can not into temp_note dir~'
+echo 'can not go into temp_note dir~'
 exit 1
 }
 
 ip_file="./tempfile"
 getipshell="./getmywebip.sh"
 
-if [ ! -r $ip_file ] || [ ! -r $getipshell ]; then
-    echo 'need the ip_file and getmywebip.sh'
+if [ ! -r "$ip_file" ] || [ ! -r "$getipshell" ] || [ ! -x "$getipshell" ]; then
+    echo "need $ip_file and $getipshell have -r, and $getipshell have -x."
     exit 1
 fi
 
 old_ip=$(cat "$ip_file")
 new_ip=$($getipshell)
 #echo -e "old ip is $old_ip\nnew ip is $new_ip"
+
+#如果 获取不到 new_ip, 可能是:
+#没网, 没办法~
+#getipshell中 ip接口的url 变了, 可以试着将 new_ip 改成 0.0.0.0
+#暂时不管
+if [[ ! "$new_ip" ]]; then
+    exit 1
+fi
 
 if [[ "${old_ip}" != "${new_ip}" ]]; then
     #echo "It's different. now update the web ip."
