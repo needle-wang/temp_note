@@ -2,7 +2,7 @@
 #the work dir should is git workspace
 #2014年 11月 16日 星期日 17:47:28 CST
 
-PATH='/usr/lib/lightdm/lightdm:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/opt/jdk1.8.0_20/bin:/home/needle/myshell'
+PATH='/usr/lib/lightdm/lightdm:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/opt/jdk1.8.0_20/bin:/home/needle/bin'
 export PATH
 
 #若开了 vpn 会导致 git 无法操作
