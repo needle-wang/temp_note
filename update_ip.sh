@@ -1,33 +1,32 @@
 #!/bin/bash -
-#the work dir should is git workspace
+#the work dir should be git workspace
 #2014年 11月 16日 星期日 17:47:28 CST
 
-PATH='/usr/lib/lightdm/lightdm:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/opt/jdk1.8.0_20/bin:/home/needle/bin'
+PATH='/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/opt/jdk1.8.0_181/bin:/home/needle/bin'
 export PATH
 
 #若开了 vpn 会导致 git 无法操作
-ifconfig | grep -q '^ppp' && exit 0
+ip a | grep -q 'ppp' && exit 0
 
 cd '/home/needle/test/gittopush/temp_note' || {
-echo 'can not go into temp_note dir~'
-exit 1
+  echo 'can not go into temp_note dir~'
+  exit 1
 }
 
 ip_file="./tempfile"
-getipshell="./getmywebip.sh"
 
-if [ ! -r "$ip_file" ] || [ ! -w "$ip_file" ] || [ ! -r "$getipshell" ] || [ ! -x "$getipshell" ]; then
-    echo "$ip_file need rw, $getipshell need rx."
+if [ ! -r "$ip_file" ] || [ ! -w "$ip_file" ] ]; then
+    echo "$ip_file need rw."
     exit 1
 fi
 
 old_ip=$(cat "$ip_file")
-new_ip=$($getipshell)
+new_ip=$(curl ip.sb)
 #echo -e "old ip is $old_ip\nnew ip is $new_ip"
 
 #如果 获取不到 new_ip, 可能是:
 #没网, 没办法~
-#getipshell中 ip接口的url 变了, 可以试着将 new_ip 改成 0.0.0.0
+#home_ip中 ip接口的url 变了, 可以试着将 new_ip 改成 0.0.0.0
 #暂时不管
 if [[ ! "$new_ip" ]]; then
     exit 1

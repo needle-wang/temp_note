@@ -4,5 +4,5 @@
 
 ip_from_github=$(wget -q -O - 'https://github.com/needle-wang/temp_note/blob/master/tempfile' | grep 'blob-code' | egrep -o '([0-9]{1,3}\.){3}[0-9]{1,3}')
 
-ssh $ip_from_github
+ssh needle@$ip_from_github
 
