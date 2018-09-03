@@ -8,21 +8,21 @@ export PATH
 #若开了 vpn 会导致 git 无法操作
 ip a | grep -q 'ppp' && exit 0
 
-cd '/home/needle/test/gittopush/temp_note' || {
+cd "$HOME/test/git_some/gittopush/temp_note" || {
   echo 'can not go into temp_note dir~'
   exit 1
 }
 
 ip_file="./tempfile"
 
-if [ ! -r "$ip_file" ] || [ ! -w "$ip_file" ] ]; then
+if [ ! -r "$ip_file" ] || [ ! -w "$ip_file" ]; then
     echo "$ip_file need rw."
     exit 1
 fi
 
 old_ip=$(cat "$ip_file")
-new_ip=$(curl ip.sb)
-#echo -e "old ip is $old_ip\nnew ip is $new_ip"
+new_ip=$(curl ip.sb 2>/dev/null)
+echo -e "old ip is $old_ip\nnew ip is $new_ip"
 
 #如果 获取不到 new_ip, 可能是:
 #没网, 没办法~
@@ -33,11 +33,11 @@ if [[ ! "$new_ip" ]]; then
 fi
 
 if [[ "${old_ip}" != "${new_ip}" ]]; then
-    #echo "It's different. now update the web ip."
+    echo "It's different. now update the web ip."
     echo "$new_ip" > "$ip_file"
-    git add "$ip_file"
-    git commit -m "update $ip_file" >/dev/null
-    git push >/dev/null
+    #git add "$ip_file"
+    #git commit -m "update $ip_file" >/dev/null
+    #git push >/dev/null
 else
     #echo "the web ip is the same."
     :
