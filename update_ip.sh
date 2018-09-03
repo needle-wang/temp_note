@@ -33,7 +33,7 @@ if [[ "${old_ip}" != "${new_ip}" ]]; then
     #echo "It's different. now update the web ip."
     echo "$new_ip" > "$ip_file"
     git add "$ip_file"
-    git commit -m "update $ip_file" &>/dev/null
+    git commit -m "update tempfile." &>/dev/null
     git push &>/dev/null
 else
     #echo "the web ip is the same."
